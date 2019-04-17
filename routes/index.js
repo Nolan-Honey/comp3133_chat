@@ -22,9 +22,9 @@ router.get('/api/eventLog/delete/:id', function(req, res, next) {
 
 router.get('/api/admin', (req,res,next)=>{
   Admin.find()
-  .exec(function(error,admin){
-      if (error){
-          return next(error);
+  .exec(function(e,admin){
+      if (e){
+          return next(e);
       }
       else{
           if (admin === null){
