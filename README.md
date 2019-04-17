@@ -10,7 +10,7 @@
 On the root folder
 
 npm install
-node app.js
+npm start
 
 * Client Side *
 

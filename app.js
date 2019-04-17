@@ -33,5 +33,5 @@ app.use('/', require('./routes/rooms'));
 
 //port connection
 server.listen(port, function(){
-    console.log('Listening on' + port);
+    console.log('Listening on ' + port);
 });
