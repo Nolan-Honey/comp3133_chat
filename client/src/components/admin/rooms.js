@@ -48,7 +48,7 @@ const getSorting=(order, orderBy)=>{
 const rows = [
   { id: 'id', numeric: false, disablePadding: true, label: 'Row ID' },
   { id: 'room', numeric: true, disablePadding: false, label: 'Room' },
-  { id: 'created', numeric: true, disablePadding: false, label: 'Created' },
+  { id: 'creationDate', numeric: true, disablePadding: false, label: 'Created' },
   { id: 'edited', numeric: true, disablePadding: false, label: 'Edited' },
   { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
   { id: 'Edit', numeric: true, disablePadding: false, button: 'Edit' },
@@ -193,9 +193,9 @@ const styles = theme => ({
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*let id=0
-  function createData(room, created, edited, status){
+  function createData(room, creationDate, edited, status){
     id+=1
-    return {id: id,room, created, edited, status};
+    return {id: id,room, creationDate, edited, status};
   }*/
 class Room extends React.Component{
   
@@ -307,7 +307,7 @@ class Room extends React.Component{
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
    /* let rows= []
     data.map(item=>{
-      this.date=item['created'].substring(0,10)
+      this.date=item['creationDate'].substring(0,10)
       this.time=item['edited'].substring(11,16)
       return rows.push(createData(item['room'],this.date, this.time, item['status']))
     })*/
@@ -364,7 +364,7 @@ class Room extends React.Component{
                       {i}
                       </TableCell>
                       <TableCell align="right">{n.room}</TableCell>
-                      <TableCell align="right">{n.created}</TableCell>
+                      <TableCell align="right">{n.creationDate}</TableCell>
                       <TableCell align="right">{n.edited}</TableCell>
                       <TableCell align="right">{n.status}</TableCell>
                       <TableCell align="right"><button >Edit</button></TableCell>

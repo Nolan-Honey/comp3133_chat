@@ -49,13 +49,13 @@ module.exports = (io)=>{
                 var newS=new S({socket_id:socket.id, createdBy:newUser.username})
                 newS.save((e)=>{
                     if (e) throw e;
-                    console.log('\nSocket id '+newS.socket_id+" created by "+ newS.createdBy+" saved to db at "+ newS.connectTime)
+                    console.log('\nSocket id '+newS.socket_id+" creationDate by "+ newS.createdBy+" saved to db at "+ newS.connectTime)
                 })
             //event in db
                 var newUserEvent=new EventLog({type:'NEW USER',name:newUser.username, socket:socket.id, room:'Main Room'})
                 newUserEvent.save((e)=>{
                     if (e) throw e;
-                    console.log('\nEvent type '+newUserEvent.type+'created by ' + newUserEvent.name + 'for socket '+newUserEvent.socket+' in the room'+newUserEvent.room+'saved to db at '+ newUserEvent.connect)
+                    console.log('\nEvent type '+newUserEvent.type+'creationDate by ' + newUserEvent.name + 'for socket '+newUserEvent.socket+' in the room'+newUserEvent.room+'saved to db at '+ newUserEvent.connect)
                 })
                 socket.room = 'Main';
             //adds username to the global list and sends them to the main room
@@ -78,12 +78,12 @@ module.exports = (io)=>{
             var newMessageEvent=new EventLog({type:'MESSAGE SENT', name:socket.nickname, socket:socket.id, room:data['room']})
             newMessageEvent.save((e)=>{
                 if (e) throw e;
-                console.log('Event type '+newMessageEvent.type+'created by ' + newMessageEvent.name + 'for socket '+newMessageEvent.socket+' in the room '+newMessageEvent.room+'saved to db at '+ newMessageEvent.connect)
+                console.log('Event type '+newMessageEvent.type+'creationDate by ' + newMessageEvent.name + 'for socket '+newMessageEvent.socket+' in the room '+newMessageEvent.room+'saved to db at '+ newMessageEvent.connect)
             })
-            var newMsg = new Chat({msg: data['message'], nick: socket.nickname, room: data['room']})
+            var newMsg = new Chat({text: data['message'], nickname: socket.nickname, room: data['room']})
             newMsg.save( (e) =>{
                 if (e) throw e;
-                console.log('Message "'+newMsg.msg+'" by ' + newMsg.nick + 'from room '+newMsg.room)
+                console.log('Message "'+newMsg.text+'" by ' + newMsg.nickname + 'from room '+newMsg.room)
                 io.sockets.in(socket.room).emit('NEW_MESSAGE', {author:socket.nickname, message:data['message']})
             })
         })
@@ -94,14 +94,14 @@ module.exports = (io)=>{
             var leaveRoomEvent=new EventLog({type:'LEAVE ROOM', name:socket.nickname, socket:socket.id, room:socket.room})
             leaveRoomEvent.save((e)=>{
                 if (e) throw e;
-                console.log('\nEvent type '+leaveRoomEvent.type+'created by ' + leaveRoomEvent.name + 'for socket '+leaveRoomEvent.socket+' in the room '+leaveRoomEvent.room+'saved to db at '+ leaveRoomEvent.connect)
+                console.log('\nEvent type '+leaveRoomEvent.type+'creationDate by ' + leaveRoomEvent.name + 'for socket '+leaveRoomEvent.socket+' in the room '+leaveRoomEvent.room+'saved to db at '+ leaveRoomEvent.connect)
             })
             socket.join(newroom);
         //store join room event
             var joinRoomEvent=new EventLog({type:'JOIN ROOM', name:socket.nickname, socket:socket.id, room:newroom})
             joinRoomEvent.save((e)=>{
                 if (e) throw e;
-                console.log('\nEvent Type '+joinRoomEvent.type+'created by ' + joinRoomEvent.name + 'for socket '+joinRoomEvent.socket+'in the room '+joinRoomEvent.room+'saved to db at '+ joinRoomEvent.connect)
+                console.log('\nEvent Type '+joinRoomEvent.type+'creationDate by ' + joinRoomEvent.name + 'for socket '+joinRoomEvent.socket+'in the room '+joinRoomEvent.room+'saved to db at '+ joinRoomEvent.connect)
             })
             message3=({author:'Chat admin', message: 'You have connected to ' + newroom})
             socket.emit('UPDATE_CHAT', message3);
@@ -136,7 +136,7 @@ module.exports = (io)=>{
             var disconnectEvent=new EventLog({type:'DISCONNECT', disconnect: new Date(), name:socket.nickname, socket:socket.id})
             disconnectEvent.save((e)=>{
                 if (e) throw e;
-                console.log('\nEvent type '+disconnectEvent.type+' created by ' + disconnectEvent.name + ' for socket '+disconnectEvent.socket+' saved to db at '+ disconnectEvent.disconnect)
+                console.log('\nEvent type '+disconnectEvent.type+' creationDate by ' + disconnectEvent.name + ' for socket '+disconnectEvent.socket+' saved to db at '+ disconnectEvent.disconnect)
             })
         //let other users in the room know user has disconnected
             message6=({author:'Chat admin', message: socket.nickname+' has disconnected'})

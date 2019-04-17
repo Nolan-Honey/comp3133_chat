@@ -306,10 +306,10 @@ class History extends React.Component{
                       <TableCell align="right" component="th" scope="row" padding="none">
                       {i}
                       </TableCell>
-                      <TableCell align="right">{n.nick}</TableCell>
-                      <TableCell align="right">{n.msg}</TableCell>
+                      <TableCell align="right">{n.nickname}</TableCell>
+                      <TableCell align="right">{n.text}</TableCell>
                       <TableCell align="right">{n.room}</TableCell>
-                      <TableCell align="right">{n.created}</TableCell>
+                      <TableCell align="right">{n.creationDate}</TableCell>
                       <TableCell align="right">{n.time}</TableCell>
                     </TableRow>
                   );
