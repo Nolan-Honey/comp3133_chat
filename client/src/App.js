@@ -27,7 +27,7 @@ class App extends Component {
     }
     this.socket =  io('localhost:5000');
   }
-  ///////////Choosing a username///////////
+  //username query
   submitUsername = e =>{
     e.preventDefault()
     this.socket.emit('NEW_USER', this.state.username, ()=>{
