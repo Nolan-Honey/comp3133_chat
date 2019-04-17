@@ -48,7 +48,7 @@ const getSort=(orderOf, orderedBy)=>{
 const roomsRows = [
   { id: 'id', numeric: false, disablePadding: true, label: 'Row ID' },
   { id: 'room', numeric: true, disablePadding: false, label: 'Room' },
-  { id: 'created', numeric: true, disablePadding: false, label: 'Created' },
+  { id: 'creationDate', numeric: true, disablePadding: false, label: 'Created' },
   { id: 'edited', numeric: true, disablePadding: false, label: 'Edited' },
   { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
   { id: 'Edit', numeric: true, disablePadding: false, button: 'Edit' },
@@ -302,7 +302,6 @@ class Room extends React.Component{
     const { classes } = this.props;
     const { data, orderOf, orderedBy, id, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
     return(
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} delId={()=>this.handleDelete(id)}/>
@@ -356,7 +355,7 @@ class Room extends React.Component{
                       {i}
                       </TableCell>
                       <TableCell align="right">{n.room}</TableCell>
-                      <TableCell align="right">{n.created}</TableCell>
+                      <TableCell align="right">{n.creationDate}</TableCell>
                       <TableCell align="right">{n.edited}</TableCell>
                       <TableCell align="right">{n.status}</TableCell>
                       <TableCell align="right"><button >Edit</button></TableCell>
