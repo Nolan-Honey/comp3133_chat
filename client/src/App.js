@@ -15,7 +15,7 @@ class App extends Component {
       socket:null,
       username:'',
       message:'',
-      messages:[],
+      allMessages:[],
       rooms:[],
       error:'',
       room:'Main',
