@@ -20,31 +20,31 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
- const desc=(a, b, orderBy)=>{
-  if (b[orderBy] < a[orderBy]) {
+ const descend=(x, y, orderBy)=>{
+  if (y[orderBy] < x[orderBy]) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (y[orderBy] > x[orderBy]) {
     return 1;
   }
   return 0;
 }
 
-const stableSort=(array, cmp)=> {
+const stableSort=(array, comp)=> {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
+  stabilizedThis.sort((x, y) => {
+    const order = comp(x[0], y[0]);
     if (order !== 0) return order;
-    return a[1] - b[1];
+    return x[1] - y[1];
   });
   return stabilizedThis.map(el => el[0]);
 }
 
-const getSorting=(order, orderBy)=>{
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+const getSort=(order, orderBy)=>{
+  return order === 'descend' ? (a, b) => descend(a, b, orderBy) : (a, b) => -descend(a, b, orderBy);
 }
 
-const rows = [
+const eventRows= [
   { id: 'id', numeric: true, disablePadding: false, label: 'Row ID' },
   { id: 'eid', numeric: true, disablePadding: false, label: 'Event ID' },
   { id: 'sockid', numeric: true, disablePadding: false, label: 'Socket ID' },
@@ -60,7 +60,7 @@ class EventsHeader extends React.Component {
   };
 
   render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const { onSelectAll, order, orderBy, numSelected, rowCount } = this.props;
 
     return (
       <TableHead>
@@ -69,10 +69,10 @@ class EventsHeader extends React.Component {
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
+              onChange={onSelectAll}
             />
           </TableCell>
-          {rows.map(
+          {eventRows.map(
             row => (
               <TableCell
                 key={row.id}
@@ -106,7 +106,7 @@ class EventsHeader extends React.Component {
 EventsHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
+  onSelectAll: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
@@ -213,20 +213,20 @@ class Events extends React.Component{
   }
   handleRequestSort = (event, property) => {
     const orderBy = property;
-    let order = 'desc';
-    if (this.state.orderBy === property && this.state.order === 'desc') {
+    let order = 'descend';
+    if (this.state.orderBy === property && this.state.order === 'descend') {
       order = 'asc';
     }
     this.setState({ order, orderBy });
   };
-  handleSelectAllClick = event => {
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   }
-  handleSelectAllClick = event => {
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
@@ -285,12 +285,12 @@ class Events extends React.Component{
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
+              onSelectAll={this.handleSelectAll}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(data, getSort(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
                   const isSelected = this.isSelected(i);

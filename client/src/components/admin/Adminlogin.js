@@ -7,8 +7,8 @@ class Adminlogin  extends Component {
         super(props);
 
         this.state={
-            dbuser:'',
-            dbpass:'',
+            databaseUser:'',
+            databasePassword:'',
             username: "",
             password: "",
             isAdmin:false
@@ -16,10 +16,10 @@ class Adminlogin  extends Component {
     }
     componentWillMount(){
        // axios.get('http://localhost:5000/api/admin')  
-         //   .then(response => this.setState({dbuser: response.data[0].username, dbpass:response.data[0].password}))
+         //   .then(response => this.setState({databaseUser: response.data[0].username, databasePassword:response.data[0].password}))
     }
     validateForm(){
-        return this.state.username === this.state.dbuser && this.state.password === this.state.dbpass;
+        return this.state.username === this.state.databaseUser && this.state.password === this.state.databasePassword;
     }
     
     handleChange = event => {
