@@ -20,31 +20,31 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
- const desc=(a, b, orderBy)=>{
-  if (b[orderBy] < a[orderBy]) {
+const descend=(x, y, orderedBy)=>{
+  if (y[orderedBy] < x[orderedBy]) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (y[orderedBy] > x[orderedBy]) {
     return 1;
   }
   return 0;
 }
 
-const stableSort=(array, cmp)=> {
+const stableSort=(array, comp)=> {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
+  stabilizedThis.sort((x, y) => {
+    const orderOf = comp(x[0], y[0]);
+    if (orderOf !== 0) return orderOf;
+    return x[1] - y[1];
   });
   return stabilizedThis.map(el => el[0]);
 }
 
-const getSorting=(order, orderBy)=>{
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+const getSort=(orderOf, orderedBy)=>{
+  return orderOf === 'descend' ? (a, b) => descend(a, b, orderedBy) : (a, b) => -descend(a, b, orderedBy);
 }
 
-const rows = [
+const historyRows = [
   { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
   { id: 'name', numeric: true, disablePadding: false, label: 'User' },
   { id: 'message', numeric: true, disablePadding: false, label: 'Message' },
@@ -59,7 +59,6 @@ class HistoryHeader extends React.Component {
   };
 
   render() {
-    //const {order, orderBy} = this.props;
     const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
     return (
       <TableHead>
@@ -71,7 +70,7 @@ class HistoryHeader extends React.Component {
               onChange={onSelectAllClick}
             />
           </TableCell>
-          {rows.map(
+          {historyRows.map(
             row => (
               <TableCell
                 key={row.id}
@@ -104,9 +103,9 @@ class HistoryHeader extends React.Component {
 HistoryHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  onSelectAll: PropTypes.func.isRequired,
+  orderOf: PropTypes.string.isRequired,
+  orderedBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
@@ -190,11 +189,14 @@ const styles = theme => ({
     overflowX: 'auto',
   },
 });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 class History extends React.Component{
+  
   state = {
-    order: 'asc',
-    orderBy: 'id',
+    orderOf: 'asc',
+    orderedBy: 'id',
     selected: [],
     data: [],
     page: 0,
@@ -208,28 +210,27 @@ class History extends React.Component{
       this.setState({data: hist.data})
     })
   }  handleRequestSort = (event, property) => {
-    const orderBy = property;
-    let order = 'desc';
-    if (this.state.orderBy === property && this.state.order === 'desc') {
-      order = 'asc';
+    const orderedBy = property;
+    let orderOf = 'descend';
+    if (this.state.orderedBy === property && this.state.orderOf === 'descend') {
+      orderOf = 'asc';
     }
-    this.setState({ order, orderBy });
+    this.setState({ orderOf, orderedBy });
   };
-  handleSelectAllClick = event => {
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   }
-  handleSelectAllClick = event => {
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   };
-
   handleClick = (event, id, eid) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
@@ -270,23 +271,23 @@ class History extends React.Component{
   };
   render(){
     const { classes } = this.props;
-    const { data, order, orderBy, id, selected, rowsPerPage, page } = this.state;
+    const { data, orderOf, orderedBy, id, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return(
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} delId={()=>this.handleDelete(id)}/>
         <div className={classes.tableWrapper}>
-        <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table className={classes.table} aria-labelledby="tableTitle">
             <HistoryHeader
               numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
+              orderOf={orderOf}
+              orderedBy={orderedBy}
+              onSelectAll={this.handleSelectAll}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(data, getSort(orderOf, orderedBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
                   const isSelected = this.isSelected(i);

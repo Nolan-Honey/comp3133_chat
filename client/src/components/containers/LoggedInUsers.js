@@ -1,5 +1,5 @@
 import React from "react";
-class OnlineUsersContainer extends React.Component {
+class LoggedInUsers extends React.Component {
 
     render() { 
         return (
@@ -21,4 +21,4 @@ class OnlineUsersContainer extends React.Component {
     }
 }
  
-export default OnlineUsersContainer;
+export default LoggedInUsers;

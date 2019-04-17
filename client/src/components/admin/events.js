@@ -20,11 +20,11 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
- const descend=(x, y, orderBy)=>{
-  if (y[orderBy] < x[orderBy]) {
+ const descend=(x, y, orderedBy)=>{
+  if (y[orderedBy] < x[orderedBy]) {
     return -1;
   }
-  if (y[orderBy] > x[orderBy]) {
+  if (y[orderedBy] > x[orderedBy]) {
     return 1;
   }
   return 0;
@@ -40,8 +40,8 @@ const stableSort=(array, comp)=> {
   return stabilizedThis.map(el => el[0]);
 }
 
-const getSort=(orderOf, orderBy)=>{
-  return orderOf === 'descend' ? (a, b) => descend(a, b, orderBy) : (a, b) => -descend(a, b, orderBy);
+const getSort=(orderOf, orderedBy)=>{
+  return orderOf === 'descend' ? (a, b) => descend(a, b, orderedBy) : (a, b) => -descend(a, b, orderedBy);
 }
 
 const eventRows= [
@@ -60,7 +60,7 @@ class EventsHeader extends React.Component {
   };
 
   render() {
-    const { onSelectAll, orderOf, orderBy, numSelected, rowCount } = this.props;
+    const { onSelectAll, orderOf, orderedBy, numSelected, rowCount } = this.props;
 
     return (
       <TableHead>
@@ -78,7 +78,7 @@ class EventsHeader extends React.Component {
                 key={row.id}
                 align='right'
                 padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? orderOf : false}
+                sortDirection={orderedBy === row.id ? orderOf : false}
               >
                 <Tooltip
                   title="Sort"
@@ -87,7 +87,7 @@ class EventsHeader extends React.Component {
                 >
                   <TableSortLabel
                     align="right"
-                    active={orderBy === row.id}
+                    active={orderedBy === row.id}
                     direction={orderOf}
                     onClick={this.createSortHandler(row.id)}
                   >
@@ -108,7 +108,7 @@ EventsHeader.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   onSelectAll: PropTypes.func.isRequired,
   orderOf: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  orderedBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
@@ -193,11 +193,13 @@ const styles = theme => ({
   },
 });
 
+
+
 class Events extends React.Component{
     
   state = {
     orderOf: 'asc',
-    orderBy: 'id',
+    orderedBy: 'id',
     selected: [],
     data: [],
     page: 0,
@@ -211,14 +213,16 @@ class Events extends React.Component{
       this.setState({data: hist.data})
     })
   }
+
   handleRequestSort = (event, property) => {
-    const orderBy = property;
+    const orderedBy = property;
     let orderOf = 'descend';
-    if (this.state.orderBy === property && this.state.orderOf === 'descend') {
+    if (this.state.orderedBy === property && this.state.orderOf === 'descend') {
       orderOf = 'asc';
     }
-    this.setState({ orderOf, orderBy });
+    this.setState({ orderOf, orderedBy });
   };
+
   handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
@@ -226,6 +230,7 @@ class Events extends React.Component{
     }
     this.setState({ selected: [] });
   }
+
   handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
@@ -259,8 +264,6 @@ class Events extends React.Component{
   };
 
   handleDelete= (eid) => {
-    // Array.prototype.filter returns new array
-    // so we aren't mutating state here
     const arrayCopy = this.state.data.filter((row) => {
       return row._id !== eid
     });
@@ -274,7 +277,7 @@ class Events extends React.Component{
   };
   render(){
     const { classes } = this.props;
-    const { data, orderOf, orderBy, id, selected, rowsPerPage, page } = this.state;
+    const { data, orderOf, orderedBy, id, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return(
       <Paper className={classes.root}>
@@ -284,13 +287,13 @@ class Events extends React.Component{
             <EventsHeader
               numSelected={selected.length}
               orderOf={orderOf}
-              orderBy={orderBy}
+              orderedBy={orderedBy}
               onSelectAll={this.handleSelectAll}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSort(orderOf, orderBy))
+              {stableSort(data, getSort(orderOf, orderedBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
                   const isSelected = this.isSelected(i);

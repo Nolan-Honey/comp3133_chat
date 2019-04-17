@@ -1,6 +1,6 @@
 import React from "react";
 
-class SendMessageContainer extends React.Component {
+class PropagateNewMessage extends React.Component {
     render() { 
         return (
 
@@ -14,4 +14,4 @@ class SendMessageContainer extends React.Component {
     }
 }
  
-export default SendMessageContainer;
+export default PropagateNewMessage;
