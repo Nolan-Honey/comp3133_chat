@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
 import History from "./history";
 import Events from "./events";
 import Rooms from "./rooms";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class Admin extends Component {
 
@@ -42,7 +43,7 @@ class Admin extends Component {
         return (
                 <div>
                     <h1 class="header">Admin Section</h1>
-                    <h5 class="logout-Button"><button onClick={this.logout}>Logout</button></h5>
+                    <h5 class="logout-Button"><button type="submit" onClick={this.logout}>Logout</button></h5>
                     <button onClick={this.click1Event}>Event Table</button>
                   
                     

@@ -6,7 +6,10 @@ import LoggedInUsers from './components/containers/LoggedInUsers'
 import Username from './components/username'
 import ChosenRoom from './components/containers/ChosenRoom'
 import Adminlogin from './components/admin/Adminlogin'
+import { Button } from "react-bootstrap";
 import io from "socket.io-client";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -101,7 +104,6 @@ this.handleRoomChange = e =>{
 }
 
     return (
-<MuiThemeProvider>
 <div>
   {
     !user?
@@ -112,12 +114,12 @@ this.handleRoomChange = e =>{
         
         <div>
           <h1>Login</h1>
-          <button onClick={this.showAdmin}>Admin</button>
+          <Button type="submit" onClick={this.showAdmin}>Admin</Button>
           <Username change={this.handleChange} submit={this.submitUsername} user={this.state.username}/>
         </div>
         :
         <div>
-          <button onClick={this.showUser}>User</button>
+          <Button onClick={this.showUser}>User</Button>
           <Adminlogin/>
         </div>
       }
@@ -134,7 +136,6 @@ this.handleRoomChange = e =>{
   
   
 </div>
-</MuiThemeProvider>
     );
   }
 }

@@ -1,4 +1,6 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 class LoggedInUsers extends React.Component {
 
     render() { 
