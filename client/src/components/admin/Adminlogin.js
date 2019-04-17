@@ -39,7 +39,7 @@ class Adminlogin  extends Component {
             this.setState({isAdmin:true})
         }
         return (
-            <div >
+            <div class="admin-container" >
                 {
                     !isAdmin?
                     <form onSubmit={this.handleSubmit}>

@@ -233,14 +233,6 @@ class Events extends React.Component{
     this.setState({ selected: [] });
   }
 
-  handleSelectAll = event => {
-    if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
-      return;
-    }
-    this.setState({ selected: [] });
-  };
-
   handleClick = (event, id, eid) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
