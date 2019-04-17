@@ -3,14 +3,14 @@ import React from "react";
 class ShowMessages extends React.Component {
     render() { 
         return (
-            <div className="log-form-old-messages">
+            <div className="log-form2">
                 <div>
                     Previous Messages
                 </div>
                 <div>
                     <ul>
                         <div>
-                            <div id='chat'>
+                            <div id='chatEmporium'>
                                 {this.props.allMessages.map((message, i)=>{
                                     return(
                                         <div key={i}>{message.author}: {message.message}</div>
