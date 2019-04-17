@@ -33,15 +33,15 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 const stableSort=(array, comp)=> {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((x, y) => {
-    const order = comp(x[0], y[0]);
-    if (order !== 0) return order;
+    const orderOf = comp(x[0], y[0]);
+    if (orderOf !== 0) return orderOf;
     return x[1] - y[1];
   });
   return stabilizedThis.map(el => el[0]);
 }
 
-const getSort=(order, orderBy)=>{
-  return order === 'descend' ? (a, b) => descend(a, b, orderBy) : (a, b) => -descend(a, b, orderBy);
+const getSort=(orderOf, orderBy)=>{
+  return orderOf === 'descend' ? (a, b) => descend(a, b, orderBy) : (a, b) => -descend(a, b, orderBy);
 }
 
 const eventRows= [
@@ -60,7 +60,7 @@ class EventsHeader extends React.Component {
   };
 
   render() {
-    const { onSelectAll, order, orderBy, numSelected, rowCount } = this.props;
+    const { onSelectAll, orderOf, orderBy, numSelected, rowCount } = this.props;
 
     return (
       <TableHead>
@@ -78,7 +78,7 @@ class EventsHeader extends React.Component {
                 key={row.id}
                 align='right'
                 padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
+                sortDirection={orderBy === row.id ? orderOf : false}
               >
                 <Tooltip
                   title="Sort"
@@ -88,7 +88,7 @@ class EventsHeader extends React.Component {
                   <TableSortLabel
                     align="right"
                     active={orderBy === row.id}
-                    direction={order}
+                    direction={orderOf}
                     onClick={this.createSortHandler(row.id)}
                   >
                     {row.label}
@@ -107,7 +107,7 @@ EventsHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAll: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
+  orderOf: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -196,7 +196,7 @@ const styles = theme => ({
 class Events extends React.Component{
     
   state = {
-    order: 'asc',
+    orderOf: 'asc',
     orderBy: 'id',
     selected: [],
     data: [],
@@ -213,11 +213,11 @@ class Events extends React.Component{
   }
   handleRequestSort = (event, property) => {
     const orderBy = property;
-    let order = 'descend';
-    if (this.state.orderBy === property && this.state.order === 'descend') {
-      order = 'asc';
+    let orderOf = 'descend';
+    if (this.state.orderBy === property && this.state.orderOf === 'descend') {
+      orderOf = 'asc';
     }
-    this.setState({ order, orderBy });
+    this.setState({ orderOf, orderBy });
   };
   handleSelectAll = event => {
     if (event.target.checked) {
@@ -274,7 +274,7 @@ class Events extends React.Component{
   };
   render(){
     const { classes } = this.props;
-    const { data, order, orderBy, id, selected, rowsPerPage, page } = this.state;
+    const { data, orderOf, orderBy, id, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return(
       <Paper className={classes.root}>
@@ -283,14 +283,14 @@ class Events extends React.Component{
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EventsHeader
               numSelected={selected.length}
-              order={order}
+              orderOf={orderOf}
               orderBy={orderBy}
               onSelectAll={this.handleSelectAll}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSort(order, orderBy))
+              {stableSort(data, getSort(orderOf, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
                   const isSelected = this.isSelected(i);
