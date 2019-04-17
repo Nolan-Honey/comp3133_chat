@@ -5,7 +5,7 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bParser = require('body-parser')
 var port = process.env.PORT || 5000;
-require('./socketManager/socket')(io);
+require('./socket/socket')(io);
 
 mongoose.Promise = global.Promise;
 //db connection

@@ -52,15 +52,15 @@ module.exports = (io)=>{
                     console.log('\nSocket id '+newS.socket_id+" creationDate by "+ newS.createdBy+" saved to db at "+ newS.connectTime)
                 })
             //event in db
-                var newUserEvent=new EventLog({type:'NEW USER',name:newUser.username, socket:socket.id, room:'Main Room'})
+                var newUserEvent=new EventLog({type:'NEW USER',name:newUser.username, socket:socket.id, room:'Chat Emporium'})
                 newUserEvent.save((e)=>{
                     if (e) throw e;
                     console.log('\nEvent type '+newUserEvent.type+'creationDate by ' + newUserEvent.name + 'for socket '+newUserEvent.socket+' in the room'+newUserEvent.room+'saved to db at '+ newUserEvent.connect)
                 })
                 socket.room = 'Main';
-            //adds username to the global list and sends them to the main room
+            //adds username to the global list and sends them to the Chat Emporium
                 socket.join('Main');
-                message=({author:'Chat admin', message: 'You have connected to Main room'})
+                message=({author:'Chat admin', message: 'You have connected to Chat Emporium'})
                 message2=({author:'Chat admin', message: socket.nickname + ' has connected to this room'})
                 socket.emit('UPDATE_CHAT', message);
                 socket.broadcast.to('Main').emit('UPDATE_CHAT', message2);

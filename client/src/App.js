@@ -41,7 +41,7 @@ class App extends Component {
     });
   }
 
-///////////Realtime Sockets///////////
+//socket
 componentDidMount(){
   this.socket.on('USER_ADDED', data=>{
     this.setState({users:data}) 
@@ -57,11 +57,11 @@ componentDidMount(){
     this.addMessage(data)
   })
 }
-/////Display Message/////
+//message display
 addMessage = data => {
   this.setState({messages: [...this.state.messages, data]});
 }
-//send message//
+//send message
 sendMessage = ev => {
   ev.preventDefault();
   this.socket.emit('SEND_MESSAGE', {
@@ -78,14 +78,13 @@ showUser=()=>{
   this.setState({admin:false});
 }
   render() {
-///////////Populating Rooms///////////
 const {rooms, user, room, admin} = this.state
 
 let roomName=[]
 rooms.forEach(room=>{
     return roomName.push(room)
 })
-///////////Changing Rooms///////////
+//switch room
 this.handleRoomChange = e =>{
   if(room===e.target.value){
     alert('You are already in this room')
