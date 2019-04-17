@@ -1,11 +1,11 @@
 import React from "react";
 
-class DisplayMessageContainer extends React.Component {
+class ShowMessages extends React.Component {
     render() { 
         return (
-            <div className="log-form2">
+            <div className="log-form-old-messages">
                 <div>
-                    Chat History
+                    Previous Messages
                 </div>
                 <div>
                     <ul>
@@ -25,4 +25,4 @@ class DisplayMessageContainer extends React.Component {
     }
 }
  
-export default DisplayMessageContainer;
+export default ShowMessages;

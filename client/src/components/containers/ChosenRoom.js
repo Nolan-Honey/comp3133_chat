@@ -1,5 +1,5 @@
 import React from "react";
-class RoomSelectionContainer extends React.Component {
+class ChosenRoom extends React.Component {
 
     render() { 
         return (
@@ -25,4 +25,4 @@ class RoomSelectionContainer extends React.Component {
     }
 }
  
-export default RoomSelectionContainer;
+export default ChosenRoom;

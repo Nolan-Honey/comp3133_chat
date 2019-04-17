@@ -21,31 +21,31 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
- const desc=(a, b, orderBy)=>{
-  if (b[orderBy] < a[orderBy]) {
+const descend=(x, y, orderedBy)=>{
+  if (y[orderedBy] < x[orderedBy]) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (y[orderedBy] > x[orderedBy]) {
     return 1;
   }
   return 0;
 }
 
-const stableSort=(array, cmp)=> {
+const stableSort=(array, comp)=> {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
+  stabilizedThis.sort((x, y) => {
+    const orderOf = comp(x[0], y[0]);
+    if (orderOf !== 0) return orderOf;
+    return x[1] - y[1];
   });
   return stabilizedThis.map(el => el[0]);
 }
 
-const getSorting=(order, orderBy)=>{
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+const getSort=(orderOf, orderedBy)=>{
+  return orderOf === 'descend' ? (a, b) => descend(a, b, orderedBy) : (a, b) => -descend(a, b, orderedBy);
 }
 
-const rows = [
+const roomsRows = [
   { id: 'id', numeric: false, disablePadding: true, label: 'Row ID' },
   { id: 'room', numeric: true, disablePadding: false, label: 'Room' },
   { id: 'creationDate', numeric: true, disablePadding: false, label: 'Created' },
@@ -60,8 +60,8 @@ class RoomHeader extends React.Component {
   };
 
   render() {
-    //const {order, orderBy} = this.props;
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const { onSelectAll, orderOf, orderedBy, numSelected, rowCount } = this.props;
+    
     return (
       <TableHead>
         <TableRow>
@@ -69,16 +69,16 @@ class RoomHeader extends React.Component {
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
+              onChange={onSelectAll}
             />
           </TableCell>
-          {rows.map(
+          {roomsRows.map(
             row => (
               <TableCell
                 key={row.id}
                 align='right'
                 padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
+                sortDirection={orderedBy === row.id ? orderOf : false}
               >
                 <Tooltip
                   title="Sort"
@@ -86,8 +86,8 @@ class RoomHeader extends React.Component {
                   enterDelay={300}
                 >
                   <TableSortLabel
-                    active={orderBy === row.id}
-                    direction={order}
+                    active={orderedBy === row.id}
+                    direction={orderOf}
                     onClick={this.createSortHandler(row.id)}
                   >
                     {row.label}
@@ -102,12 +102,12 @@ class RoomHeader extends React.Component {
     );
   }
 }
-RoomHeader.propTypes = {
+  RoomHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  onSelectAll: PropTypes.func.isRequired,
+  orderOf: PropTypes.string.isRequired,
+  orderedBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
@@ -191,12 +191,10 @@ const styles = theme => ({
     overflowX: 'auto',
   },
 });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*let id=0
-  function createData(room, creationDate, edited, status){
-    id+=1
-    return {id: id,room, creationDate, edited, status};
-  }*/
+
+
+
+
 class Room extends React.Component{
   
   constructor(props) {
@@ -206,8 +204,8 @@ class Room extends React.Component{
 }    
   
   state = {
-    order: 'asc',
-    orderBy: 'id',
+    orderOf: 'asc',
+    orderedBy: 'id',
     selected: [],
     data: [],
     page: 0,
@@ -229,14 +227,15 @@ class Room extends React.Component{
     }
     this.setState({ order, orderBy });
   };
-  handleSelectAllClick = event => {
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   }
-  handleSelectAllClick = event => {
+
+  handleSelectAll = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
@@ -269,8 +268,6 @@ class Room extends React.Component{
   };
 
   handleDelete= (eid) => {
-    // Array.prototype.filter returns new array
-    // so we aren't mutating state here
     const arrayCopy = this.state.data.filter((row) => {
       return row._id !== eid
     });
@@ -303,14 +300,8 @@ class Room extends React.Component{
   render(){
 
     const { classes } = this.props;
-    const { data, order, orderBy, id, selected, rowsPerPage, page } = this.state;
+    const { data, orderOf, orderedBy, id, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-   /* let rows= []
-    data.map(item=>{
-      this.date=item['creationDate'].substring(0,10)
-      this.time=item['edited'].substring(11,16)
-      return rows.push(createData(item['room'],this.date, this.time, item['status']))
-    })*/
     return(
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} delId={()=>this.handleDelete(id)}/>
@@ -336,14 +327,14 @@ class Room extends React.Component{
           <Table className={classes.table} aria-labelledby="tableTitle">
             <RoomHeader
               numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
+              orderOf={orderOf}
+              orderedBy={orderedBy}
+              onSelectAll={this.handleSelectAll}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(data, getSort(orderOf, orderedBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
                   const isSelected = this.isSelected(i);

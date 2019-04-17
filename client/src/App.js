@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import SendMessageContainer from './components/containers/sendMessageContatiner'
-import DisplayMessageContainer from './components/containers/displayMessageContainer'
-import OnlineUsersContainer from './components/containers/onlineUsersConatiner'
+import PropagateNewMessage from './components/containers/PropagateNewMessage'
+import ShowMessages from './components/containers/ShowMessages'
+import LoggedInUsers from './components/containers/LoggedInUsers'
 import Username from './components/username'
-import RoomSelectionContainer from './components/containers/roomSelectionContainer'
+import ChosenRoom from './components/containers/ChosenRoom'
 import Adminlogin from './components/admin/Adminlogin'
 import io from "socket.io-client";
 
@@ -121,10 +121,10 @@ this.handleRoomChange = e =>{
     :
     <div id='contentWrap'>
     <h1 align="center">{room} Chatroom</h1>
-      <OnlineUsersContainer online={this.state.users}/>
-      <RoomSelectionContainer rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
-      <DisplayMessageContainer messages={this.state.messages}/>
-      <SendMessageContainer message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
+      <LoggedInUsers online={this.state.users}/>
+      <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
+      <ShowMessages messages={this.state.messages}/>
+      <PropagateNewMessage message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
     </div>
   }
   
