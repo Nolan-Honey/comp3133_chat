@@ -7,6 +7,10 @@ import Username from './components/username'
 import ChosenRoom from './components/containers/ChosenRoom'
 import Adminlogin from './components/admin/Adminlogin'
 import io from "socket.io-client";
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
 
 class App extends Component {
   constructor(props){
