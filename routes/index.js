@@ -4,7 +4,6 @@ var eventLog = require('../models/Events.js');
 var Chat = require('../models/chatRooms.js');
 var Admin = require('../models/Admin');
 
-
 router.get('/api/eventlog', function(req, res, next) {
   eventLog.find((e, results)=>{
       if(e) throw e;
