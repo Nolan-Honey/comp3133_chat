@@ -18,8 +18,8 @@ class Adminlogin  extends Component {
         };
     }
     componentWillMount(){
-        //   axios.get('http://localhost:5000/api/admin')  
-        //    .then(response => this.setState({databaseUser: response.data[0].username, databasePassword:response.data[0].password}))
+          axios.get('http://localhost:5000/api/admin')  
+           .then(response => this.setState({databaseUser: response.data[0].username, databasePassword:response.data[0].password}))
     }
     validateForm(){
         return this.state.username === this.state.databaseUser && this.state.password === this.state.databasePassword;
