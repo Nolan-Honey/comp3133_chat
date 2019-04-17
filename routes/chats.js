@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var C = require('../models/Chats.js');
+var C = require('../models/chatRooms.js');
 
 //all messages
 router.get('/api/history', function(req, res, next) {

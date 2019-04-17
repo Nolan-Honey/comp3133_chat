@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var eventLog = require('../models/Events.js');
-var Chat = require('../models/Chats.js');
+var Chat = require('../models/chatRooms.js');
 var Admin = require('../models/Admin');
 
 
