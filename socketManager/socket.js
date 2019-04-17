@@ -1,18 +1,19 @@
-var rooms = [],
-    users = {},
-    User = require('../models/Users.js'),
-    Chat = require('../models/Chats.js'),
-    Sockio = require('../models/Sockets.js'),
-    Elog = require('../models/Events.js'),
-    Private = require('../models/PrivateChats.js'),
-    Rooms = require('../models/Rooms')
+var rooms = []
+var users = {}
+var User = require('../models/Users.js');
+var Chat = require('../models/Chats.js');
+var Sockio = require('../models/Sockets.js');
+var Elog = require('../models/Events.js');
+var Private = require('../models/PrivateChats.js');
+var Rooms = require('../models/Rooms');
 
 module.exports = (io)=>{
-
     io.sockets.on('connection', (socket)=> {
-        Rooms.find((err, results)=>{
-            if(err) throw err;
-            results.forEach((i)=>{
+        Rooms.find((e, res)=>{
+            if(e) {
+                throw e;
+            }
+            res.forEach((i)=>{
                 if (rooms.includes(i.room)){
                     console.log('Lets not add this one: ' + i.room)
                 }else{
@@ -77,35 +78,6 @@ module.exports = (io)=>{
 
         //save messages to the database
         socket.on('SEND_MESSAGE',  (data)=> {
-            
-            /*var msg = data.trim();
-            if(msg.substr(0,3) === '/w '){
-                msg = msg.substr(3);
-                var ind = msg.indexOf(' ');
-                if(ind !== -1) {
-                    var name = msg.substring(0, ind);
-                    var msg  = msg.substring(ind+1);
-                    if(name in users){
-                        users[name].emit('whisper', {msg: msg ,nick: socket.nickname});
-                    //store private message in database
-                        var newPrivateMessage = new Private({sender:socket.nickname, reciever:name, msg:msg})
-                        newPrivateMessage.save((err)=>{
-                            console.log('\n==========STORE PRIVATE MESSAGE IN DATABASE==========\nSent by: '+newPrivateMessage.sender+'\nRecieved by: ' + newPrivateMessage.reciever + '\nWith Message: '+newPrivateMessage.msg+'\nSaved to database at: '+ newPrivateMessage.time)
-                    //store private message event in database
-                        var newMessageEvent=new Elog({type:'PRIVATE MESSAGE', name:socket.nickname, socket:socket.id})
-                        newMessageEvent.save((err)=>{
-                            if (err) throw err;
-                            console.log('\n==========STORE EVENT IN DATABASE==========\nEvent Type: '+newMessageEvent.type+'\nCreated by: ' + newMessageEvent.name + '\nSent to: '+newPrivateMessage.reciever+'\nSaved to database at: '+ newMessageEvent.connect)
-                    })
-                        })
-                    }else {
-                        callback('Error! Enter a valid user');
-                    }
-                }else {
-                    callback('Error! Please enter a message for your whisper');
-                }
-            }else{}*/
-        //store new message event
             var newMessageEvent=new Elog({type:'MESSAGE SENT', name:socket.nickname, socket:socket.id, room:data['room']})
             newMessageEvent.save((err)=>{
                 if (err) throw err;

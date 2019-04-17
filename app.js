@@ -1,29 +1,25 @@
-var express = require('express'),
-    app = express(),
-    path = require('path');
-    server = require('http').createServer(app),
-    io = require('socket.io')(server),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    port = process.env.PORT || 5000;
-    require('./socketManager/socket')(io);
-
-
-//////////PORT CONNECTION//////////
-server.listen(port, function(){
-    console.log('Listening on port ' + port);
-});
-
-//////////DATABASE CONNECTION//////////
-mongoose.connect('mongodb://chat:admin123@ds048368.mlab.com:48368/chat',{ useNewUrlParser: true }, (err)=> {
-    if (err){
-        console.log(err);
-    }else {
-        console.log('Connected to Database')
-    }
-})
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
+var port = process.env.PORT || 5000;
+require('./socketManager/socket')(io);
 
 mongoose.Promise = global.Promise;
+//db connection
+mongoose.connect('mongodb://chat:admin123@ds048368.mlab.com:48368/chat', { useNewUrlParser: true }, (err)=> {
+
+    if (err){
+        console.log(err);
+    }
+    else {
+        console.log('db is connected...');
+    }
+});
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -36,3 +32,8 @@ app.use(function(req, res, next) {
 app.use('/chats', require('./routes/chats'));
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/rooms'));
+
+//port connection
+server.listen(port, function(){
+    console.log('Listening on port ' + port);
+});
