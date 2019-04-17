@@ -63,7 +63,7 @@ componentDidMount(){
 }
 //message display
 addMessage = data => {
-  this.setState({messages: [...this.state.messages, data]});
+  this.setState({allMessages: [...this.state.allMessages, data]});
 }
 //send message
 sendMessage = ev => {
@@ -126,7 +126,7 @@ this.handleRoomChange = e =>{
     <h1 align="center">{room} Chatroom</h1>
       <LoggedInUsers online={this.state.users}/>
       <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
-      <ShowMessages messages={this.state.messages}/>
+      <ShowMessages messages={this.state.allMessages}/>
       <PropagateNewMessage message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
     </div>
   }
