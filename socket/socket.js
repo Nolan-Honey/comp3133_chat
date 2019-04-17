@@ -1,7 +1,7 @@
 var rooms = []
 var users = {}
 var User = require('../models/Users.js');
-var Chat = require('../models/Chats.js');
+var Chat = require('../models/chatRooms.js');
 var S = require('../models/Sockets.js');
 var EventLog = require('../models/Events.js');
 var Private = require('../models/PrivateChats.js');
@@ -49,18 +49,18 @@ module.exports = (io)=>{
                 var newS=new S({socket_id:socket.id, createdBy:newUser.username})
                 newS.save((e)=>{
                     if (e) throw e;
-                    console.log('\nSocket id '+newS.socket_id+" creationDate by "+ newS.createdBy+" saved to db at "+ newS.connectTime)
+                    console.log('\nSocket id '+newS.socket_id+" creationDate "+ newS.createdBy+" saved to db at "+ newS.connectTime)
                 })
             //event in db
-                var newUserEvent=new EventLog({type:'NEW USER',name:newUser.username, socket:socket.id, room:'Main Room'})
+                var newUserEvent=new EventLog({type:'NEW USER',name:newUser.username, socket:socket.id, room:'Chat Emporium'})
                 newUserEvent.save((e)=>{
                     if (e) throw e;
-                    console.log('\nEvent type '+newUserEvent.type+'creationDate by ' + newUserEvent.name + 'for socket '+newUserEvent.socket+' in the room'+newUserEvent.room+'saved to db at '+ newUserEvent.connect)
+                    console.log('\nEvent type '+newUserEvent.type+' creationDate ' + newUserEvent.name + 'for socket '+newUserEvent.socket+' in the room '+newUserEvent.room+' saved to db at '+ newUserEvent.connect)
                 })
                 socket.room = 'Main';
-            //adds username to the global list and sends them to the main room
+            //adds username to the global list and sends them to the Chat Emporium
                 socket.join('Main');
-                message=({author:'Chat admin', message: 'You have connected to Main room'})
+                message=({author:'Chat admin', message: 'You have connected to Chat Emporium'})
                 message2=({author:'Chat admin', message: socket.nickname + ' has connected to this room'})
                 socket.emit('UPDATE_CHAT', message);
                 socket.broadcast.to('Main').emit('UPDATE_CHAT', message2);
@@ -78,7 +78,7 @@ module.exports = (io)=>{
             var newMessageEvent=new EventLog({type:'MESSAGE SENT', name:socket.nickname, socket:socket.id, room:data['room']})
             newMessageEvent.save((e)=>{
                 if (e) throw e;
-                console.log('Event type '+newMessageEvent.type+'creationDate by ' + newMessageEvent.name + 'for socket '+newMessageEvent.socket+' in the room '+newMessageEvent.room+'saved to db at '+ newMessageEvent.connect)
+                console.log('Event type '+newMessageEvent.type+' creationDate ' + newMessageEvent.name + 'for socket '+newMessageEvent.socket+' in the room '+newMessageEvent.room+' saved to db at '+ newMessageEvent.connect)
             })
             var newMsg = new Chat({text: data['message'], nickname: socket.nickname, room: data['room']})
             newMsg.save( (e) =>{
@@ -94,14 +94,14 @@ module.exports = (io)=>{
             var leaveRoomEvent=new EventLog({type:'LEAVE ROOM', name:socket.nickname, socket:socket.id, room:socket.room})
             leaveRoomEvent.save((e)=>{
                 if (e) throw e;
-                console.log('\nEvent type '+leaveRoomEvent.type+'creationDate by ' + leaveRoomEvent.name + 'for socket '+leaveRoomEvent.socket+' in the room '+leaveRoomEvent.room+'saved to db at '+ leaveRoomEvent.connect)
+                console.log('\nEvent type '+leaveRoomEvent.type+' creationDate ' + leaveRoomEvent.name + 'for socket '+leaveRoomEvent.socket+' in the room '+leaveRoomEvent.room+'saved to db at '+ leaveRoomEvent.connect)
             })
             socket.join(newroom);
         //store join room event
             var joinRoomEvent=new EventLog({type:'JOIN ROOM', name:socket.nickname, socket:socket.id, room:newroom})
             joinRoomEvent.save((e)=>{
                 if (e) throw e;
-                console.log('\nEvent Type '+joinRoomEvent.type+'creationDate by ' + joinRoomEvent.name + 'for socket '+joinRoomEvent.socket+'in the room '+joinRoomEvent.room+'saved to db at '+ joinRoomEvent.connect)
+                console.log('\nEvent Type '+joinRoomEvent.type+' creationDate ' + joinRoomEvent.name + 'for socket '+joinRoomEvent.socket+' in the room '+joinRoomEvent.room+'saved to db at '+ joinRoomEvent.connect)
             })
             message3=({author:'Chat admin', message: 'You have connected to ' + newroom})
             socket.emit('UPDATE_CHAT', message3);
@@ -128,7 +128,7 @@ module.exports = (io)=>{
                     //save the update
                     sock.save((e)=>{
                         if (e) throw e;
-                        console.log( "\nSocket id " + sock.socket_id + "disconnected timeline " + sock.disconnectTime);
+                        console.log( "\nSocket id " + sock.socket_id + " disconnected timeline " + sock.disconnectTime);
                     })
                 })
             })
