@@ -11,7 +11,7 @@ class ShowMessages extends React.Component {
                     <ul>
                         <div>
                             <div id='chat'>
-                                {this.props.messages.map((message, i)=>{
+                                {this.props.allMessages.map((message, i)=>{
                                     return(
                                         <div key={i}>{message.author}: {message.message}</div>
                                     )

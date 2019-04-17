@@ -8,10 +8,10 @@ class Username extends React.Component {
             <div>
                 <form onSubmit={this.props.submit}>
                 <span>
-                    Member Login
+                    Chat Login
                 </span>
                 <FormGroup controlId="username">
-                    <label>username</label>
+                    <label>Nickname</label>
                     <FormControl autoFocus value={this.props.user} onChange={this.props.change}/>
                 </FormGroup>
                 <Button type="submit">Login</Button>
