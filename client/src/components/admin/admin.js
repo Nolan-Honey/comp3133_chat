@@ -3,6 +3,8 @@ import History from "./history";
 import Events from "./events";
 import Rooms from "./rooms";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from "react-bootstrap";
+
 
 
 class Admin extends Component {
@@ -43,14 +45,14 @@ class Admin extends Component {
         return (
                 <div>
                     <h1 class="header">Admin Section</h1>
-                    <h5 class="logout-Button"><button type="submit" onClick={this.logout}>Logout</button></h5>
-                    <button onClick={this.click1Event}>Event Table</button>
+                    <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
+                    <Button onClick={this.click1Event}>Event Table</Button>
                   
                     
-                    <button onClick={this.click1History}>History Table</button>
+                    <Button onClick={this.click1History}>Chat History Table</Button>
                     
                     
-                    <button onClick={this.click1Rooms}>Rooms Table</button>
+                    <Button onClick={this.click1Rooms}>Rooms Table</Button>
                     {roomsTable}{historyTable}{eventTable}
                     
                    

@@ -116,10 +116,10 @@ const toolbarStyles = theme => ({
     paddingRight: theme.spacing.unit,
   },
   highlight:
-    theme.palette.type === 'light'
+    theme.palette.type === 'dark'
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          backgroundColor: lighten(theme.palette.secondary.dark, 0.85),
         }
       : {
           color: theme.palette.text.primary,
