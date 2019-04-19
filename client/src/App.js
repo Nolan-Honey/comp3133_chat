@@ -8,7 +8,7 @@ import ChosenRoom from './components/containers/ChosenRoom'
 import Adminlogin from './components/admin/Adminlogin'
 import { Button } from "react-bootstrap";
 import io from "socket.io-client";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import background from '../../client/src/resources/bridge.jpg';
 import '../../client/src/resources/style.css';
 
