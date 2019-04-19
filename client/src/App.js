@@ -19,7 +19,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 var pic = {
   height: "100vh",
-  backgroundImage: `url(${background})`
+  backgroundImage: `url(${background})`,
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat'
   
 }
 
