@@ -9,11 +9,19 @@ import Adminlogin from './components/admin/Adminlogin'
 import { Button } from "react-bootstrap";
 import io from "socket.io-client";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import background from '../../client/src/resources/bridge.jpg';
+import '../../client/src/resources/style.css';
 
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import AppBar from 'material-ui/AppBar';
+
+var pic = {
+  height: "100vh",
+  backgroundImage: `url(${background})`
+  
+}
 
 class App extends Component {
   constructor(props){
@@ -104,6 +112,7 @@ this.handleRoomChange = e =>{
 }
 
     return (
+    <section style={pic} className="fullscreen-viewController">
 <div>
   {
     !user?
@@ -113,7 +122,8 @@ this.handleRoomChange = e =>{
         !admin?
         
         <div>
-          <h1>Login</h1>
+          <br></br>
+          <h1 align="center">Welcome to Chat Emporium</h1>
           <Button type="submit" onClick={this.showAdmin}>Admin</Button>
           <Username change={this.handleChange} submit={this.submitUsername} user={this.state.username}/>
         </div>
@@ -136,6 +146,7 @@ this.handleRoomChange = e =>{
   
   
 </div>
+</section>
     );
   }
 }
