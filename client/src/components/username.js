@@ -3,27 +3,25 @@ import { Button, FormGroup, FormControl } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../resources/style.css';
 
-
 class Username extends React.Component {
 
 
     render() { 
         return (
             <div>
-                <form onSubmit={this.props.submit}>
-                <span>
-                    Chat Login
-                </span>
-                <FormGroup controlId="username">
-                    <label>Nickname</label>
+                <form onSubmit={this.props.submit} >
+                <FormGroup controlId="username" >
+                    <label>Enter your nickname.</label>
                     <FormControl autoFocus value={this.props.user} onChange={this.props.change}/>
                 </FormGroup>
-                <Button type="submit">Login</Button>
+                <Button color="danger" type="submit">Login</Button>
                 <p>{this.error}</p>
                 </form>
             </div>
           );
     }
+
+    
 }
  
 export default Username;

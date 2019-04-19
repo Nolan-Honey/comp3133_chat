@@ -23,7 +23,6 @@ var pic = {
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat'
-  
 }
 
 class App extends Component {
@@ -117,42 +116,42 @@ this.handleRoomChange = e =>{
   
 }
 
-    return (
-    <section style={pic} className="fullscreen-viewController">
-<div>
-  {
-    !user?
-    <div>
-      
-      {
-        !admin?
+return (
+<section style={pic} className="fullscreen-viewController">
+  <div>
+    {
+      !user?
+      <div>
         
-        <div>
-          <br></br>
-          <h1 align="center">Welcome to Chat Emporium</h1>
-          <Button type="submit" onClick={this.showAdmin}>Admin</Button>
-          <Username change={this.handleChange} submit={this.submitUsername} user={this.state.username}/>
-        </div>
-        :
-        <div>
-          <Button onClick={this.showUser}>User</Button>
-          <Adminlogin/>
-        </div>
-      }
-    </div>
-    :
-    <div id='contentWrap'>
-    <h1 align="center">{room} Chatroom</h1>
-    <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
-      <LoggedInUsers online={this.state.users}/>
-      <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
-      <ShowMessages allMessages={this.state.allMessages}/>
-      <PropagateNewMessage message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
-    </div>
-  }
-  
-  
-</div>
+        {
+          !admin?
+          
+          <div>
+            <br></br>
+            <h1 align="center">Welcome to Chat Emporium</h1>
+            <Button color="info" type="submit" onClick={this.showAdmin}>Admin</Button>
+            <Username change={this.handleChange} submit={this.submitUsername} user={this.state.username}/>
+          </div>
+          :
+          <div>
+            <Button onClick={this.showUser}>User</Button>
+            <Adminlogin/>
+          </div>
+        }
+      </div>
+      :
+      <div id='contentWrap'>
+      <h1 align="center">{room} Chatroom</h1>
+      <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
+        <LoggedInUsers online={this.state.users}/>
+        <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
+        <ShowMessages allMessages={this.state.allMessages}/>
+        <PropagateNewMessage message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
+      </div>
+    }
+    
+    
+  </div>
 </section>
     );
   }

@@ -8,6 +8,12 @@
     
 
 }
+
+html {
+    font-family: "Palatino Linotype", "Book Antiqua";
+    font-size: 18px;
+    color: #fff;
+  }
 #username{
     opacity:0.4;
 }
