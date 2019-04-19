@@ -18,13 +18,40 @@ html {
 }
 .marginLeft{
     margin-left: 3em;
+    margin-right: 3em;
 }
+
+
 .password-field{
     opacity:0.8;
 }
 
+.box{
+    opacity:0.8;
+    width: 90%;
+    background-color:white;
+    max-height: 200px;
+    overflow: scroll;
+    border-color: black;
+
+}
+.messageBox{
+    width: 94.5%;
+}
+.box1{
+    opacity:0.8;
+    width: 90%;
+    background-color:white;
+    max-height: 100px;
+    overflow: scroll;
+    border-color: black;
+
+}
+
+
+
 .adminLoginButton{
-    width: 4%;
+    width: 8%;
     stop-opacity: inherit;
     text-align: center;
 }

@@ -134,7 +134,8 @@ return (
           </div>
           :
           <div>
-            <Button onClick={this.showUser}>User</Button>
+            <br></br><br></br>
+            <Button variant="warning" className="marginLeft" onClick={this.showUser}>User</Button>
             <Adminlogin />
           </div>
         }
@@ -142,10 +143,13 @@ return (
       :
       <div id='contentWrap'>
       <h1 align="center">{room} Chatroom</h1>
-      <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
+      <h5 class="logout-Button"><Button className="marginLeft" type="submit" onClick={this.logout}>Logout</Button></h5>
         <LoggedInUsers online={this.state.users}/>
+        <br></br>
         <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
+        <br></br>
         <ShowMessages allMessages={this.state.allMessages}/>
+        <br></br>
         <PropagateNewMessage message={this.state.message} change={ev=>this.setState({message: ev.target.value})} send={this.sendMessage}/>    
       </div>
     }
