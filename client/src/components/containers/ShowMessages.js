@@ -1,5 +1,5 @@
 import React from "react";
-import 'boot    strap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../../client/src/resources/style.css'
 
 class ShowMessages extends React.Component {
