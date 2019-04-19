@@ -8,8 +8,9 @@ class Username extends React.Component {
 
     render() { 
         return (
-            <div>
+            <div >
                 <form onSubmit={this.props.submit} >
+                <br></br>
                 <FormGroup controlId="username" >
                     <label>Enter your nickname.</label>
                     <FormControl autoFocus value={this.props.user} onChange={this.props.change}/>
