@@ -4,7 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bParser = require('body-parser')
-var port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 require('./socket/socket')(io);
 
 mongoose.Promise = global.Promise;
@@ -18,7 +18,7 @@ mongoose.connect('mongodb://chat:admin123@ds048368.mlab.com:48368/chat', { useNe
         console.log('db is connected...');
     }
 });
-
+app.use(express.static(path.join(__dirname, 'frontend/build/index.html')))
 app.use(bParser.urlencoded({ extended: true }));
 app.use(bParser.json());
 app.use(function(req, res, next) {
