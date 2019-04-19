@@ -16,5 +16,9 @@ html {
   }
 #username{
     opacity:0.4;
-    width:50%;
+    width:100%;
+}
+
+.password-field{
+    opacity:0.4;
 }

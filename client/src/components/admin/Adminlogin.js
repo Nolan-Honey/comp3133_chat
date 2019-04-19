@@ -3,6 +3,8 @@ import { Button, FormGroup, FormControl } from "react-bootstrap";
 import Admin from "./admin";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../resources/style.css';
+
 
 class Adminlogin  extends Component {
 
@@ -54,7 +56,7 @@ class Adminlogin  extends Component {
                         </FormGroup>
                         <FormGroup controlId="password">
                             <label>password</label>
-                            <FormControl value={this.state.password} onChange={this.handleChange} type="password"/>
+                            <FormControl className="password-field" value={this.state.password} onChange={this.handleChange} type="password"/>
                         </FormGroup>
                         <Button block disabled={!this.validateForm()} type="submit">Login</Button>
                     </form>
