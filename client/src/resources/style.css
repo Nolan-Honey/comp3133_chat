@@ -10,9 +10,16 @@
 }
 #username{
     opacity:0.4;
-    width:100%;
 }
 
 .password-field{
     opacity:0.4;
+}
+
+.adminLoginButton{
+    width: 3%;
+    stop-opacity: inherit;
+}
+.header-text{
+    text-align: center;
 }

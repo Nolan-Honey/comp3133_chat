@@ -4,6 +4,7 @@ import Events from "./events";
 import Rooms from "./rooms";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
+import '../../resources/style.css';
 
 
 
@@ -44,7 +45,7 @@ class Admin extends Component {
     
         return (
                 <div>
-                    <h1 class="header">Admin Section</h1>
+                    <h1 class="header-text">Admin Section</h1>
                     <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
                     <Button onClick={this.click1Event}>Event Table</Button>
                   
