@@ -14,7 +14,7 @@ class LoggedInUsers extends React.Component {
                     <ul>
                         {
                             this.props.online.map((user, i)=>{
-                                return <li key={i}>{user}</li>
+                                return <li class="list" key={i}>{user}</li>
                             })
                         }
                     </ul>

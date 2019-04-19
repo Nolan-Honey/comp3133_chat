@@ -49,7 +49,9 @@ html {
 }
 
 
-
+.list{
+    list-style-type: none;
+}
 .adminLoginButton{
     width: 8%;
     stop-opacity: inherit;

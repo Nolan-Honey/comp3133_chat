@@ -144,6 +144,7 @@ return (
       <div id='contentWrap'>
       <h1 align="center">{room} Chatroom</h1>
       <h5 class="logout-Button"><Button className="marginLeft" type="submit" onClick={this.logout}>Logout</Button></h5>
+        <br></br>
         <LoggedInUsers online={this.state.users}/>
         <br></br>
         <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>

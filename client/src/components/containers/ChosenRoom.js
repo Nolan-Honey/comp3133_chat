@@ -8,7 +8,7 @@ class ChosenRoom extends React.Component {
         return (
             <div className="marginLeft box1">
                 <div>
-                    Chat Rooms
+                    Chatroom List
                 </div>
                 <div>
                     <ul>
