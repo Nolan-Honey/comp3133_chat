@@ -129,7 +129,7 @@ return (
           <div>
             <br></br>
             <h1 align="center">Welcome to Chat Emporium</h1>
-            <Button type="submit" onClick={this.showAdmin}>Admin</Button>
+            <Button color="info" type="submit" onClick={this.showAdmin}>Admin</Button>
             <Username change={this.handleChange} submit={this.submitUsername} user={this.state.username}/>
           </div>
           :
