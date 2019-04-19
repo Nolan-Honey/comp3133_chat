@@ -66,43 +66,45 @@ class EventsHeader extends React.Component {
     const { onSelectAll, orderOf, orderedBy, numSelected, rowCount } = this.props;
 
     return (
-      <TableHead className="admin-table">
-        <TableRow className="admin-table">
-        <TableCell className="admin-table" padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAll}
-            />
-          </TableCell>
-          {eventRows.map(
-            row => (
-              <TableCell
-                key={row.id}
-                align='right'
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderedBy === row.id ? orderOf : false}
-              >
-                <Tooltip
-                  title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
+      <div className="admin-table">
+        <TableHead>
+          <TableRow>
+          <TableCell className="admin-table" padding="checkbox">
+              <Checkbox
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={numSelected === rowCount}
+                onChange={onSelectAll}
+              />
+            </TableCell>
+            {eventRows.map(
+              row => (
+                <TableCell
+                  key={row.id}
+                  align='right'
+                  padding={row.disablePadding ? 'none' : 'default'}
+                  sortDirection={orderedBy === row.id ? orderOf : false}
                 >
-                  <TableSortLabel
-                    align="right"
-                    active={orderedBy === row.id}
-                    direction={orderOf}
-                    onClick={this.createSortHandler(row.id)}
+                  <Tooltip
+                    title="Sort"
+                    placement={row.numeric ? 'bottom-end' : 'bottom-start'}
+                    enterDelay={300}
                   >
-                    {row.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            ),
-            this,
-          )}
-        </TableRow>
-      </TableHead>
+                    <TableSortLabel
+                      align="right"
+                      active={orderedBy === row.id}
+                      direction={orderOf}
+                      onClick={this.createSortHandler(row.id)}
+                    >
+                      {row.label}
+                    </TableSortLabel>
+                  </Tooltip>
+                </TableCell>
+              ),
+              this,
+            )}
+          </TableRow>
+        </TableHead>
+      </div>
     );
   }
 }
@@ -287,7 +289,7 @@ class Events extends React.Component{
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
-            <TableBody>
+            <TableBody className="admin-table">
               {stableSort(data, getSort(orderOf, orderedBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
