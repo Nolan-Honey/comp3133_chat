@@ -4,7 +4,6 @@
 101077205 Nolan Honey
 
 
-
 * Server Side *
 
 On the root folder
@@ -17,3 +16,8 @@ npm start
 cd client
 npm install
 npm start
+
+* Admin login *
+
+username: admin
+password: admin

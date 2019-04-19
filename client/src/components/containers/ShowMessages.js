@@ -1,13 +1,13 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.css';
-
+import 'boot    strap/dist/css/bootstrap.min.css';
+import '../../../../client/src/resources/style.css'
 
 class ShowMessages extends React.Component {
     render() { 
         return (
-            <div className="log-form2">
+            <div className="log-form2 marginLeft box">
                 <div>
-                    Previous Messages
+                    Message History
                 </div>
                 <div>
                     <ul>

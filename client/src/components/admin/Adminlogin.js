@@ -43,19 +43,20 @@ class Adminlogin  extends Component {
             this.setState({isAdmin:true})
         }
         return (
-            <div class="admin-container" >
+            <div className="admin-container marginLeft" >
                 {
                     !isAdmin?
                     <form onSubmit={this.handleSubmit}>
                         <span>
-                            Admin Login
+                            <h1 align="center">Admin Login</h1>
                         </span>
+                        <br></br>
                         <FormGroup controlId="username">
-                            <label>username</label>
+                            <label>Username</label>
                             <FormControl autoFocus value={this.state.username} onChange={this.handleChange}/>
                         </FormGroup>
                         <FormGroup controlId="password">
-                            <label>password</label>
+                            <label>Password</label>
                             <FormControl className="password-field" value={this.state.password} onChange={this.handleChange} type="password"/>
                         </FormGroup>
                         <Button className="adminLoginButton" block disabled={!this.validateForm()} type="submit">Login</Button>

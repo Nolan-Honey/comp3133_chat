@@ -1,14 +1,14 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../../../client/src/resources/style.css'
 
 class ChosenRoom extends React.Component {
 
     render() { 
         return (
-            <div>
+            <div className="marginLeft box1">
                 <div>
-                    Chat Rooms
+                    Chatroom List
                 </div>
                 <div>
                     <ul>
