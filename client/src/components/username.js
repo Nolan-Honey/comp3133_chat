@@ -14,7 +14,7 @@ class Username extends React.Component {
                     <label>Enter your nickname.</label>
                     <FormControl autoFocus value={this.props.user} onChange={this.props.change}/>
                 </FormGroup>
-                <Button color="danger" type="submit">Login</Button>
+                <Button variant="info" type="submit">Login</Button>
                 <p>{this.error}</p>
                 </form>
             </div>

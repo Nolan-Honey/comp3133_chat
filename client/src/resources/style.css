@@ -11,8 +11,7 @@
 
 html {
     font-family: "Palatino Linotype", "Book Antiqua";
-    font-size: 18px;
-    color: #fff;
+    font-size: 16px;
   }
 #username{
     opacity:0.4;
@@ -21,4 +20,9 @@ html {
 
 .password-field{
     opacity:0.4;
+}
+
+.marginLeft{
+    margin-left: 2em;
+
 }
