@@ -14,15 +14,25 @@ html {
     font-size: 16px;
   }
 #username{
-    opacity:0.4;
-    width:100%;
+    opacity:0.8;
 }
 
 .password-field{
-    opacity:0.4;
+    opacity:0.8;
 }
 
-.marginLeft{
-    margin-left: 2em;
-
+.adminLoginButton{
+    width: 4%;
+    stop-opacity: inherit;
+    text-align: center;
+}
+.header-text{
+    text-align: center;
+}
+.admin-table{
+    background-color:white;
+    opacity: 0.8;
+}
+.addroom-Button{
+    background-color:Orange;
 }

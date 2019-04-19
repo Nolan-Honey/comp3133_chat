@@ -58,7 +58,7 @@ class Adminlogin  extends Component {
                             <label>password</label>
                             <FormControl className="password-field" value={this.state.password} onChange={this.handleChange} type="password"/>
                         </FormGroup>
-                        <Button block disabled={!this.validateForm()} type="submit">Login</Button>
+                        <Button className="adminLoginButton" block disabled={!this.validateForm()} type="submit">Login</Button>
                     </form>
                     :
                     <div>

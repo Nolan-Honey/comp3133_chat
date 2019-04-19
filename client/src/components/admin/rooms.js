@@ -21,6 +21,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../resources/style.css';
 
 
 const descend=(x, y, orderedBy)=>{
@@ -65,9 +66,9 @@ class RoomHeader extends React.Component {
     const { onSelectAll, orderOf, orderedBy, numSelected, rowCount } = this.props;
     
     return (
-      <TableHead>
-        <TableRow>
-        <TableCell padding="checkbox">
+      <TableHead className="admin-table">
+        <TableRow className="admin-table">
+        <TableCell className="admin-table" padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
@@ -309,7 +310,7 @@ class Room extends React.Component{
         <EnhancedTableToolbar numSelected={selected.length} delId={()=>this.handleDelete(id)}/>
         <div className={classes.tableWrapper}>
 
-        <input type="Button" value="Add Room" onClick={this.openModal}/>
+        <input type="Button" value="Add Room" className="addroom-Button" onClick={this.openModal}/>
             <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={()=>this.closeModal}>
             <div>
                 <form method="POST" action="/api/room">
