@@ -361,9 +361,10 @@ class Room extends React.Component{
                       <TableCell align="right">{n.creationDate}</TableCell>
                       <TableCell align="right">{n.edited}</TableCell>
                       <TableCell align="right">{n.status}</TableCell>
-                      <TableCell align="right"><button >Edit</button></TableCell>
+                      <TableCell align="right"><button >Edit</button>
+                      </TableCell>
                     </TableRow>
-                  );
+                  ); 
                 })}
                {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
