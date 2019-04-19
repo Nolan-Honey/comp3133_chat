@@ -336,7 +336,7 @@ class Room extends React.Component{
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
-            <TableBody>
+            <TableBody className="admin-table">
               {stableSort(data, getSort(orderOf, orderedBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n,i) => {
