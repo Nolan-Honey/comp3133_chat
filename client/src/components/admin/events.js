@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../resources/style.css';
 
 
  const descend=(x, y, orderedBy)=>{
@@ -65,9 +66,9 @@ class EventsHeader extends React.Component {
     const { onSelectAll, orderOf, orderedBy, numSelected, rowCount } = this.props;
 
     return (
-      <TableHead>
-        <TableRow>
-        <TableCell padding="checkbox">
+      <TableHead className="admin-table">
+        <TableRow className="admin-table">
+        <TableCell className="admin-table" padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
