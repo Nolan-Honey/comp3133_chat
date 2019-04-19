@@ -34,6 +34,9 @@ class App extends Component {
     }
     this.socket =  io('localhost:5000');
   }
+  logout(){
+    window.location.replace('/');
+  }
   //username query
   submitUsername = e =>{
     e.preventDefault()
@@ -127,6 +130,7 @@ this.handleRoomChange = e =>{
     :
     <div id='contentWrap'>
     <h1 align="center">{room} Chatroom</h1>
+    <h5 class="logout-Button"><Button type="submit" onClick={this.logout}>Logout</Button></h5>
       <LoggedInUsers online={this.state.users}/>
       <ChosenRoom rooms={roomName} value={this.state.room} onChangeValue={this.handleRoomChange}/>
       <ShowMessages allMessages={this.state.allMessages}/>
